@@ -1,0 +1,43 @@
+﻿@model SocialNetwork.ViewsModels.SendMessageViewModel
+@{
+    ViewBag.Title = "SendMessage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="scroll">
+            @foreach (var m in Model.Messages)
+            {
+                if (m.UserFrom.UserId == Model.I.UserId)
+                {
+                    <div class="mailfrom">
+                        <img src="@Url.Content(Model.I.UserPhoto ?? "~/Images/noavatar.jpg")" width="150" height="150" />
+                        <p>
+                            @m.Text
+                        </p>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="mailto">
+                        <p>
+                            @m.Text
+                        </p>
+                        <img src="@Url.Content(Model.Companion.UserPhoto ?? "~/Images/noavatar.jpg")" width="150" height="150" />
+                    </div>
+                }
+            }
+        </div>
+        <hr />
+        @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post, new { @class = "mess-form" }))
+        {
+            @Html.Hidden("from", Model.I.UserId)
+            @Html.Hidden("to", Model.Companion.UserId)
+            @Html.TextArea("text");
+            <button type="submit" class="btn">Send</button>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,78 @@
+﻿@model  SocialNetwork.ViewsModels.ProfileViewModel
+@{
+    ViewBag.Title = Model.DisplayName;
+}
+
+<br />
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-4">
+
+
+
+        <img src="@Url.Content(Model.UserPhoto ?? "~/Images/noavatar.jpg")" class="img-rounded" width="300" height="300" />
+
+
+        @if (Model.UserEmail == User.Identity.Name)
+        {
+            using (Html.BeginForm("Upload", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm" }))
+            {
+                <input type="file" name="files[]" multiple="multiple" title="Load" />
+                <input type="submit" value="ok" />
+            }
+
+            <a href="@Url.Action("Messages","Message",new { id = Model.UserId})" class="btn btn-default">Messages</a>
+        }
+        else
+        {
+            <p id="addf">
+                @Ajax.ActionLink("Add to friends", "AddToFriend", new { id = Model.UserId }, new AjaxOptions { UpdateTargetId = "addf", InsertionMode = InsertionMode.ReplaceWith })
+            </p>
+            <a>Message</a>
+        }
+
+    </div>
+    <div class="col-md-8">
+
+        <h1>@Model.DisplayName</h1>
+        <p>@Model.UserBirthDate</p>
+        <p>@Model.UserEmail</p>
+
+        <hr />
+        <div class="friends">
+            <a href="@Url.Action("Friends","Profile",new { id = Model.UserId })">Friends</a>
+            @if (Model.Friends != null && Model.Friends.Count() != 0)
+            {
+                <ul class="friends">
+                    @foreach (var f in Model.Friends.Take(4))
+                {
+                    { Html.RenderPartial("_FriendPartial", f); }
+                }
+                </ul>
+            }
+            else
+            {
+                <p>     У вас нет друзей</p>
+            }
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<div class="row photos">
+    <div class="col-md-12">
+        <a href="@Url.Action("Photos","Profile",new { id = Model.UserId })">Photos</a>
+        @if (Model.Photos != null)
+        {
+            foreach (var f in Model.Photos.Take(10))
+            {
+                <img src="@Url.Content(f.Link)" />
+            }
+        }
+    </div>
+</div>
