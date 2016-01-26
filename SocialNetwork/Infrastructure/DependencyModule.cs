@@ -16,11 +16,11 @@ namespace SocialNetwork.Infrastructure
             Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             Bind<IRoleRepository>().To<RoleRepository>().InRequestScope();
             Bind<IMessageRepository>().To<MessageRepository>().InRequestScope();
-            //Bind<IPhotoRepository>().To<PhotoRepository>().InRequestScope();
+            Bind<IPhotoRepository>().To<PhotoRepository>().InRequestScope();
             Bind<IUserService>().To<UserService>().InRequestScope();
             Bind<IRoleService>().To<RoleService>().InRequestScope();
             Bind<IMessageService>().To<MessageService>().InRequestScope();
-           // Bind<IPhotoService>().To<PhotoService>().InRequestScope();
+            Bind<IPhotoService>().To<PhotoService>().InRequestScope();
             Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
             Bind<DbContext>().To<SocialNetworkEntities>().InRequestScope();
 

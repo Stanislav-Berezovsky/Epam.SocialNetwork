@@ -22,3 +22,58 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.photos{
+    margin-top:20px;
+}
+ul.friends li{
+    display:inline;
+
+}
+
+ul.friends li{
+    display:inline-block;
+}
+
+.mailfrom p {
+    color:black;
+    float:right;    
+}
+
+.mailfrom img {
+    float:left;
+}
+.mailfrom {
+    clear: both;
+    height: 160px;
+}
+.mailto p{
+    color:red;
+    float: left;
+}
+
+.mailto img {
+    float: right;
+}
+
+.mailto {
+    clear: both;
+    background: gray;
+    height: 150px;
+    margin-bottom: 10px;
+}
+
+.mess-form {
+    
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: 700px;
+}
+
+#AvatarPhoto{
+    margin-bottom:15px;
+
+}
+

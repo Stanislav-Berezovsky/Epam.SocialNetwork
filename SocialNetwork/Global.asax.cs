@@ -12,6 +12,7 @@ namespace SocialNetwork
         protected void Application_Start()
         {
             Database.SetInitializer(new BaseInisializze());
+
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

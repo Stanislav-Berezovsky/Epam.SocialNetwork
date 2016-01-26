@@ -12,9 +12,9 @@ namespace DAL.Repositories
     {
         private readonly DbContext context;
 
-        public UserRepository(DbContext dbC)
+        public UserRepository(IUnitOfWork uow)
         {
-            this.context = dbC;
+            this.context = uow.GetContext();
         }
         public List<User> GetUsers()
         {

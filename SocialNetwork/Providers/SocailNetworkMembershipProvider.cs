@@ -33,15 +33,12 @@ namespace SocialNetwork.Providers
                 UserEmail = viewModel.Email,
                 UserPassword = Crypto.HashPassword(viewModel.Password),
                 UserBirthDate = viewModel.Birthday,
-                UserPhoto = viewModel.UserPhoto
             };
-
             var role = RoleService.GetAllRoles().FirstOrDefault(r => r.RoleName == "user");
             if (role != null)
             {
-                user.RoleId = role.RoleId;
+                user.Roles.Add(role);
             }
-
             UserService.AddUser(user);
             membershipUser = GetUser(viewModel.Email, false);
             return membershipUser;

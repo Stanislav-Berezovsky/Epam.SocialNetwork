@@ -12,7 +12,7 @@ namespace SocialNetwork.ViewsModels
         public string UserSurname { get; set; }
         public DateTime? UserBirthDate { get; set; }
         public string UserEmail { get; set; }
-        public string UserPhoto { get; set; }
+        public int UserPhotoId { get; set; }
         public bool IsFriend { get; set; }
         public IEnumerable<User> Friends { get; set; }
         public IEnumerable<Photo> Photos { get; set; }

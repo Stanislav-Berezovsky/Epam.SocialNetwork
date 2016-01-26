@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using System.Data.Entity;
+using System;
 
 namespace DAL.Repositories
 {
@@ -26,6 +27,11 @@ namespace DAL.Repositories
             {
                 Context.Dispose();
             }
+        }
+
+        public DbContext GetContext()
+        {
+            return Context;
         }
     }
 }

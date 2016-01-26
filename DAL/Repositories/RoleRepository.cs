@@ -10,9 +10,9 @@ namespace DAL.Repositories
     {
         private readonly DbContext context;
 
-        public RoleRepository(DbContext dbC)
+        public RoleRepository(IUnitOfWork uow)
         {
-            this.context = dbC;
+            this.context = uow.GetContext();
         }
         public void AddRole(Role role)
         {

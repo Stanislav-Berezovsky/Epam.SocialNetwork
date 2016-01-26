@@ -2,6 +2,8 @@
 using DAL.Interfaces;
 using Entity;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -59,6 +61,11 @@ namespace BLL.Services
         public List<User> GetUsers()
         {
             return userRepository.GetUsers();
+        }
+
+        public bool IsFriend(int userId, int friendId)
+        {
+            return GetFriends(userId).Any(u => u.UserId == friendId);
         }
 
         public IEnumerable<User> Search(string search)

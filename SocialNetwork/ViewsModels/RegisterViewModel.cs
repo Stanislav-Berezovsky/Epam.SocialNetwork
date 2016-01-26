@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace SocialNetwork.ViewsModels
@@ -30,7 +31,7 @@ namespace SocialNetwork.ViewsModels
         [DataType(DataType.Date)]
         [Display(Name = "Enter your birthday date")]
         public DateTime Birthday { get; set; }
-        public string UserPhoto { get; set; }
+        public Photo UserPhoto { get; set; }
         public string DisplayName => FirstName + " " + LastName;
 
     }

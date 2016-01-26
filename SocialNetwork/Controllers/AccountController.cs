@@ -5,6 +5,7 @@ using SocialNetwork.Providers;
 using System.Web.Security;
 using BLL.Interfaces;
 using SocialNetwork.ViewsModels;
+using Entity;
 
 namespace SocialNetwork.Controllers
 {
@@ -12,7 +13,6 @@ namespace SocialNetwork.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService userService;
-
         public AccountController(IUserService uS)
         {
             this.userService = uS;
@@ -83,20 +83,14 @@ namespace SocialNetwork.Controllers
             }
 
             if (ModelState.IsValid)
-            {
-                if (img != null && img.ContentType == "image/jpg" || img.ContentType == "image/png" || img.ContentType == "image/jpeg")
-                {
-                    var path = "~/Images/" + img.FileName;
-                    img.SaveAs(Server.MapPath(path));
-                    viewModel.UserPhoto = path;
-                }
+            {              
 
                 var membershipUser = ((SocailNetworkMembershipProvider)Membership.Provider)
                     .CreateUser(viewModel);
 
                 if (membershipUser != null)
                 {
-                    FormsAuthentication.SetAuthCookie(viewModel.Email, false);
+                    FormsAuthentication.SetAuthCookie(viewModel.Email, true);
                     return RedirectToAction("Index", "Profile");
                 }
                 else

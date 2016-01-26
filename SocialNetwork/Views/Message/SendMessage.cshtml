@@ -12,7 +12,7 @@
                 if (m.UserFrom.UserId == Model.I.UserId)
                 {
                     <div class="mailfrom">
-                        <img src="@Url.Content(Model.I.UserPhoto ?? "~/Images/noavatar.jpg")" width="150" height="150" />
+                        <img src="@Url.Action("GetImage","Profile",new  { PhotoId = Model.I.UserPhotoId })" width="150" height="150" />
                         <p>
                             @m.Text
                         </p>
@@ -25,7 +25,7 @@
                         <p>
                             @m.Text
                         </p>
-                        <img src="@Url.Content(Model.Companion.UserPhoto ?? "~/Images/noavatar.jpg")" width="150" height="150" />
+                        <img src="@Url.Action("GetImage","Profile",new  { PhotoId = Model.Companion.UserPhotoId })" width="150" height="150" />
                     </div>
                 }
             }

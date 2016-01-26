@@ -13,9 +13,9 @@ namespace DAL.Repositories
     {
         private readonly DbContext context;
 
-        public MessageRepository(DbContext dbC)
+        public MessageRepository(IUnitOfWork uow)
         {
-            this.context = dbC;
+            this.context = uow.GetContext();
         }
         public void AddMessage(Message message)
         {

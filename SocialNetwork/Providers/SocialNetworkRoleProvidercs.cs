@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -19,13 +20,11 @@ namespace SocialNetwork.Providers
             var user = UserService.GetUserByEmail(email);
 
             if (user == null) return false;
-
-            var userRole = RoleService.GetRoleById(user.RoleId);
-            if (userRole != null && userRole.RoleName == roleName)
+            var userRole = user.Roles.FirstOrDefault(r => r.RoleName == roleName);
+            if (userRole != null)
             {
                 return true;
             }
-
             return false;
         }
 
@@ -34,14 +33,13 @@ namespace SocialNetwork.Providers
             var roles = new string[] { };
             var user = UserService.GetUserByEmail(email);
             if (user == null) return roles;
-            var userRole = user.role;
+            var userRole = user.Roles;
 
             if (userRole != null)
             {
-                roles = new string[] { userRole.RoleName };
+                roles = userRole.Select(r => r.RoleName).ToArray();
             }
             return roles;
-
         }
 
         public override void CreateRole(string roleName)

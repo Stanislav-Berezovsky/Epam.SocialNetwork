@@ -2,10 +2,9 @@
 
 <li>
     <div>
-        <img src="@Url.Content(Model.UserPhoto ?? "~/Images/noavatar.jpg")" width="300" height="300" />
+        <img src="@Url.Action("GetImage","Profile",new { PhotoId = Model.UserPhotoId})" width="150" height="150" />
         <p>
             <a href="@Url.Action("Index","Profile",new  { id = Model.UserId})">@Model.UserName @Model.UserSurname </a>
         </p>
     </div>
-
 </li>
