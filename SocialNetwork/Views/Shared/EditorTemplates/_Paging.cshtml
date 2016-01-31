@@ -1,0 +1,40 @@
+﻿@model Common.Paging.PagingSettings
+@{
+    int totalPages = (int)Math.Ceiling((double)(Model.TotalCount/Model.EntitiesPerPage));
+    var minPage = Model.CurrentPage - Model.DisplayedRange;
+    var maxPage = Model.CurrentPage + Model.DisplayedRange;
+    if (minPage < 1)
+    {
+        maxPage =  maxPage + 1 - minPage;
+    }
+
+    if (maxPage > totalPages)
+    {
+        minPage = minPage - maxPage + totalPages;
+    }
+
+    var counter = minPage;
+}
+<div class="paging">
+    @Html.HiddenFor(m => m.CurrentPage, new { @class = "current-page" })
+    <ul class="pagination">
+        <li><a href="#" data-page="1">First</a></li>
+        @while (counter < maxPage)
+        {
+            if (counter > 0 && counter <= totalPages)
+            {
+                if (counter != Model.CurrentPage)
+                {
+                    <li><a href="#" data-page="@counter">@counter</a></li>
+                }
+                else
+                {
+                    <li class="active"><a href="#" data-page="@counter">@counter</a></li>
+                }
+            }
+
+            counter++;
+        }
+        <li><a href="#" data-page="@totalPages">Last</a></li>
+    </ul>
+</div>

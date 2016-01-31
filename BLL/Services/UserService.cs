@@ -4,6 +4,8 @@ using Entity;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Common;
+using Common.Paging;
 
 namespace BLL.Services
 {
@@ -45,7 +47,21 @@ namespace BLL.Services
 
         public IEnumerable<User> GetFriends(int key)
         {
-            return GetUser(key).Friends;
+            var user = GetUser(key);
+            return user.Friends;
+        }
+
+        public PagedCollection<User> GetFriends(int key, PagingSettings settings)
+        {
+            var user = GetUser(key);
+            var friendsTotalCount = user.Friends.Count();
+            var friends = user.Friends.Skip((settings.CurrentPage - 1) * settings.EntitiesPerPage).Take(settings.EntitiesPerPage);
+            settings.TotalCount = friendsTotalCount;
+            return new PagedCollection<User>()
+            {
+                Settings = settings,
+                Entities = friends            
+            };
         }
 
         public User GetUser(int key)
@@ -70,8 +86,24 @@ namespace BLL.Services
 
         public IEnumerable<User> Search(string search)
         {
-            var s = search.ToLower();
+            var s = search ?? "";
+            s = s.ToLower();
             return userRepository.GetMany(u => (u.UserName.ToLower() + " " + u.UserSurname.ToLower() + " " + u.UserEmail.ToLower() + " " + u.UserBirthDate.ToString().ToLower()).Contains(s));
+        }
+
+        public PagedCollection<User> Search(PagingSettings settings, string search = "")
+        {
+            var s = search ?? "";
+            s = s.ToLower();
+            var users = userRepository.GetMany(u => (u.UserName.ToLower() + " " + u.UserSurname.ToLower() + " " + u.UserEmail.ToLower() + " " + u.UserBirthDate.ToString().ToLower()).Contains(s));
+            settings.TotalCount = users.Count();
+            users = users.Skip((settings.CurrentPage - 1)*settings.EntitiesPerPage).Take(settings.EntitiesPerPage);
+
+            return new PagedCollection<User>()
+            {
+                Settings = settings,
+                Entities = users
+            } ;
         }
 
         public void UpdateUser(User user)

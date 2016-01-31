@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
+using Common.Paging;
 
 namespace SocialNetwork.Controllers
 {
@@ -50,27 +52,33 @@ namespace SocialNetwork.Controllers
             return RedirectToAction("Index", new { id = id });
         }
 
-        public ActionResult Friends(int id = 0)
+        public ActionResult Friends(FriendsViewModel model)
         {
             User user;
-            user = userService.GetUser(id);
+            user = userService.GetUser(model.id);
             if (user == null)
                 user = userService.GetUserByEmail(User.Identity.Name);
-            var friends = userService.GetFriends(user.UserId);
-            var mapped = Mapper.Map<IEnumerable<ProfileViewModel>>(friends);
+            var friends = userService.GetFriends(user.UserId, model.Users.Settings);
+            var mapped = Mapper.Map<IEnumerable<ProfileViewModel>>(friends.Entities);
+            
             var viewModel = new FriendsViewModel()
             {
-                Users = mapped,
-                IsFriends = true
+                Users = new PagedCollection<ProfileViewModel>()
+                {
+                    Entities = mapped,
+                    Settings = friends.Settings,                   
+                },
+                IsFriends = true,
+                id = model.id,
             };
             return View(viewModel);
 
         }
 
         [HttpPost]
-        public ActionResult Search(string search)
+        public ActionResult Search(FriendsViewModel model)
         {
-            var users = userService.Search(search);
+            var users = userService.Search( model.Users.Settings, model.Search);
             var searched = Mapper.Map<IEnumerable<ProfileViewModel>>(users);
 
             var me = userService.GetUserByEmail(User.Identity.Name);
@@ -88,7 +96,11 @@ namespace SocialNetwork.Controllers
 
             var viewModel = new FriendsViewModel()
             {
-                Users = searched,
+                Users = new PagedCollection<ProfileViewModel>()
+                {
+                   Entities = searched,
+                   Settings = users.Settings
+                },
                 IsFriends = false
             };
             ViewBag.Title = "Search";

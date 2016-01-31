@@ -3,10 +3,6 @@
     ViewBag.Title = Model.DisplayName;
 }
 
-<br />
-<br />
-<br />
-<br />
 <div class="row">
     <div class="col-md-4">
 
@@ -19,7 +15,7 @@
         {
             using (Html.BeginForm("Upload", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm" }))
             {
-                <input type="file" name="image" title="LoadImage" onchange="$('#uploadForm').submit();" />
+                <input type="file"  name="image" title="LoadImage" onchange="$('#uploadForm').submit();" />
 
             }
 
@@ -45,9 +41,12 @@
     <div class="col-md-8">
 
         <h1>@Model.DisplayName</h1>
-        <p>@Model.UserBirthDate.Value.ToShortDateString()</p>
+        <p>@Model.UserBirthDate.Value.ToString("d MMM yyyy") </p>
         <p>@Model.UserEmail</p>
-
+        @if (Model.UserEmail == User.Identity.Name)
+        {
+            @Html.ActionLink("Editing", "Editing", "Account", null , htmlAttributes: new { @class = "btn btn-default" });
+        }
         <hr />
         <div class="friends">
             <a href="@Url.Action("Friends","Profile",new { id = Model.UserId })">Friends</a>
@@ -62,7 +61,7 @@
             }
             else
             {
-                <p>     У вас нет друзей</p>
+                <p>You haven't friends</p>
             }
         </div>
 

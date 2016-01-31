@@ -15,6 +15,7 @@ namespace SocialNetwork.Infrastructure
         protected override void Configure()
         {
             CreateMap<User, ProfileViewModel>();
+            CreateMap<User, EditingViewModel>();
         }
     }
 }

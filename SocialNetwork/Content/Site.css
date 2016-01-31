@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -75,5 +74,21 @@ ul.friends li{
 #AvatarPhoto{
     margin-bottom:15px;
 
+}
+
+.dropdown-menu .form-group {
+    margin: 0px
+}
+
+.margin-top-10 {
+    margin-top:10px !important
+}
+
+.margin-left-12 {
+    margin-left: 12px;
+}
+
+.width-90p {
+    width:90% !important
 }
 

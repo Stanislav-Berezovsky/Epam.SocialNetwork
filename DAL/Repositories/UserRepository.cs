@@ -28,11 +28,13 @@ namespace DAL.Repositories
 
         public void UpdateUser(User user)
         {
-            context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            // context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            var oldUser = GetUser(user.UserId);
+            context.Entry(oldUser).CurrentValues.SetValues(user);
         }
         public User GetUserByEmail(string email)
         {
-            return context.Set<User>().Where(u => u.UserEmail == email).FirstOrDefault();
+            return context.Set<User>().Where(u => u.UserEmail == email).FirstOrDefault();           
         }
 
         public void DeleteUser(User user)

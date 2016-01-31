@@ -9,7 +9,7 @@ namespace SocialNetwork
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-{version}.js",                      
                          "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -25,8 +25,14 @@ namespace SocialNetwork
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/themes/base/all.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/themes/base/datepicker.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(               
+                "~/Scripts/jquery-ui-1.11.4.js",
+                "~/Scripts/Site.js"));
         }
     }
 }

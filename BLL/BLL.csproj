@@ -51,6 +51,10 @@
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{9a670222-4fea-4dda-9a42-4a6af2ba78bb}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{26b3655e-0165-40d9-97d1-287556de98f7}</Project>
       <Name>DAL</Name>

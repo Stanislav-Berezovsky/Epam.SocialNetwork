@@ -6,6 +6,7 @@ using System.Web.Security;
 using BLL.Interfaces;
 using SocialNetwork.ViewsModels;
 using Entity;
+using AutoMapper;
 
 namespace SocialNetwork.Controllers
 {
@@ -17,6 +18,35 @@ namespace SocialNetwork.Controllers
         {
             this.userService = uS;
         }
+
+        [HttpGet]
+        public ActionResult Editing()
+        {
+            User user = userService.GetUserByEmail(User.Identity.Name);
+            if (user == null)
+                return HttpNotFound();
+            var viewModel = Mapper.Map<EditingViewModel>(user);
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        public ActionResult Editing(EditingViewModel eViewModel)
+        {
+            User user = Mapper.Map<User>(eViewModel);
+            var oldUser = userService.GetUserByEmail(User.Identity.Name);
+            if (string.IsNullOrEmpty(eViewModel.NewUserPassword))
+            {            
+                user.UserPassword = oldUser.UserPassword;
+            }
+            else
+                user.UserPassword = eViewModel.NewUserPassword;
+            user.UserPhotoId = oldUser.UserPhotoId;
+            userService.UpdateUser(user);
+            return RedirectToAction("Index", "Profile");
+
+        }
+
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)

@@ -1,4 +1,5 @@
-﻿@model SocialNetwork.ViewsModels.FriendsViewModel
+﻿@using SocialNetwork.ViewsModels
+@model SocialNetwork.ViewsModels.FriendsViewModel
 @{
     ViewBag.Title = "Friends";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,37 +25,41 @@
     <div class="col-md-10 col-md-offset-1">
         <table class="table">
             <thead>
-                <tr>
-                    <th>Photo</th>
-                    <th>Name</th>
-                    <th>Other</th>
-                </tr>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Other</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var f in Model.Users)
-                {
-                    <tr>
-                        <td><img src="@Url.Action("GetImage","Profile",new  { PhotoId = f.UserPhotoId })" width="100" height="100" /></td>
-                        <td>@f.DisplayName</td>
-                        <td>
-                            <a href="@Url.Action("SendMessage","Message",new { id = f.UserId})">Message</a> |
-                            @if (Model.IsFriends || f.IsFriend)
-                            {
-                                <a>Delete</a>
-                            }
-                            else
-                            {
-                                <span id="@f.UserId-addf">
-                                    @Ajax.ActionLink("Add to friends", "AddToFriend", new { id = f.UserId }, new AjaxOptions { UpdateTargetId = f.UserId.ToString() + "-addf", InsertionMode = InsertionMode.ReplaceWith })
+            @foreach (ProfileViewModel f in Model.Users)
+            {
+                <tr>
+                    <td><a href="@Url.Action("Index", "Profile",new  { id = f.UserId})"><img src="@Url.Action("GetImage", "Profile", new {PhotoId = f.UserPhotoId})" width="100" height="100"/></a></td>
+                    <td><a href="@Url.Action("Index", "Profile",new  { id = f.UserId})">@f.DisplayName</a></td>
+                    <td>
+                        <a href="@Url.Action("SendMessage", "Message", new {id = f.UserId})">Message</a> |
+                        @if (Model.IsFriends || f.IsFriend)
+                        {
+                            <a>Delete</a>
+                        }
+                        else
+                        {
+                            <span id="@f.UserId-addf">
+                                    @Ajax.ActionLink("Add to friends", "AddToFriend", new {id = f.UserId}, new AjaxOptions {UpdateTargetId = f.UserId.ToString() + "-addf", InsertionMode = InsertionMode.ReplaceWith})
                                 </span>
-                            }
-                        </td>
-                    </tr>
-                }
+                        }
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>
 </div>
-
-
-
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.id)
+    {
+        @Html.EditorFor(m => m.Users.Settings,"_Paging");
+    }
+}
