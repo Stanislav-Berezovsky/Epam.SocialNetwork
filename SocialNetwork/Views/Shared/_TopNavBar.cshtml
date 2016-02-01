@@ -12,7 +12,10 @@
             
         </div>
         <ul class="nav navbar-nav">
-            <li class= "active">@Html.ActionLink("Home", "Index", "Profile", new { id = 0 })</li>
+            @*<li class="active">@Html.ActionLink("Home", "Index", "Profile", new {id = 0})</li>*@
+            <li>
+                <a href="/Profile/Index">Home</a>
+            </li>
         </ul>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,3 +24,4 @@
         }
     </div><!-- /.container-fluid -->
 </nav>
+
