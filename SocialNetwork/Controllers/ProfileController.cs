@@ -52,6 +52,13 @@ namespace SocialNetwork.Controllers
             return RedirectToAction("Index", new { id = id });
         }
 
+        public ActionResult DeleteFromFriend(int id = 0)
+        {
+            var user = userService.GetUserByEmail(User.Identity.Name);
+            var deleteFriend = userService.DeleteFrind(user, id);
+            return RedirectToAction("Friends");
+        }
+
         public ActionResult Friends(FriendsViewModel model)
         {
             User user;

@@ -32,12 +32,26 @@ namespace BLL.Services
             uow.Commit();
             return true;
         }
+        public bool DeleteFrind(User user, int friendId)
+        {
+            var friend = GetUser(friendId);
+            if (friend == null)
+                return false;
+            if (!user.Friends.Contains((friend)))
+                return false;
+            user.Friends.Remove(friend);
+            friend.Friends.Remove(user);
+            uow.Commit();
+            return true;
+        }
 
         public void AddUser(User user)
         {
             userRepository.AddUser(user);
             uow.Commit();
         }
+
+        
 
         public void DeleteUser(User user)
         {

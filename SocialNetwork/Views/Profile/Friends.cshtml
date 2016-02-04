@@ -41,7 +41,7 @@
                         <a href="@Url.Action("SendMessage", "Message", new {id = f.UserId})">Message</a> |
                         @if (Model.IsFriends || f.IsFriend)
                         {
-                            <a>Delete</a>
+                            <a href="@Url.Action("DeleteFromFriend","Profile",new {id = f.UserId})">Delete</a>
                         }
                         else
                         {
