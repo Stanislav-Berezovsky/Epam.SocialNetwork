@@ -1,6 +1,12 @@
 ﻿@model Common.Paging.PagingSettings
 @{
-    int totalPages = (int)Math.Ceiling((double)(Model.TotalCount/Model.EntitiesPerPage));
+    //int totalPages = (int)Math.Ceiling((double)(Model.TotalCount/Model.EntitiesPerPage));
+    int totalPages = Model.TotalCount/Model.EntitiesPerPage;
+    int temp = Model.TotalCount%Model.EntitiesPerPage;
+    if (temp != 0)
+    {
+        totalPages = totalPages + 1;
+    }
     var minPage = Model.CurrentPage - Model.DisplayedRange;
     var maxPage = Model.CurrentPage + Model.DisplayedRange;
     if (minPage < 1)

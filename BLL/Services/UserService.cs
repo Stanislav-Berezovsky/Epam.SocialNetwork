@@ -69,7 +69,7 @@ namespace BLL.Services
         {
             var user = GetUser(key);
             var friendsTotalCount = user.Friends.Count();
-            var friends = user.Friends.Skip((settings.CurrentPage - 1) * settings.EntitiesPerPage).Take(settings.EntitiesPerPage);
+            var friends = user.Friends.Skip((settings.CurrentPage -1) * settings.EntitiesPerPage).Take(settings.EntitiesPerPage);
             settings.TotalCount = friendsTotalCount;
             return new PagedCollection<User>()
             {
