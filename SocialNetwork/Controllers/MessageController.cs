@@ -3,10 +3,12 @@ using BLL.Interfaces;
 using Entity;
 using SocialNetwork.ViewsModels;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
+using SocialNetwork.Hubs;
 
 namespace SocialNetwork.Controllers
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class MessageController : Controller
     {
         private IMessageService messageService;
@@ -49,6 +51,12 @@ namespace SocialNetwork.Controllers
             };
 
             messageService.AddMessage(message);
+            var hub = GlobalHost.ConnectionManager.GetHubContext<MessageHub>();
+            hub.Clients.Group(u_to.UserEmail).sendMessage(u_from.UserName,message.Text,u_from.UserPhotoId);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_messPartial", message);
+            }
             return RedirectToAction("SendMessage", new { id = to });
         }
     }

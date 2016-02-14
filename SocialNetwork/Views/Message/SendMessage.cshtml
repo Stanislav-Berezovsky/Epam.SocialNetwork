@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <div class="scroll">
+        <div class="scroll" id="scroll">
             @foreach (var m in Model.Messages)
             {
                 if (m.UserFrom.UserId == Model.I.UserId)
@@ -30,8 +30,13 @@
                 }
             }
         </div>
-        <hr />
-        @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post, new { @class = "mess-form" }))
+        <hr/>
+        <script>
+        function OnComplete() {
+            $("#text").val("");
+        }
+        </script>
+        @using (Ajax.BeginForm("SendMessage", null, new AjaxOptions() { UpdateTargetId = "scroll", InsertionMode = InsertionMode.InsertAfter, OnComplete = "OnComplete" }, new { @class = "mess-form" }))
         {
             @Html.Hidden("from", Model.I.UserId)
             @Html.Hidden("to", Model.Companion.UserId)

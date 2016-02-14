@@ -1,0 +1,10 @@
+﻿@model Entity.Message
+
+
+<div class="mailfrom">
+    <img src="@Url.Action("GetImage","Profile",new  { PhotoId = Model.UserFrom.UserPhotoId })" width="150" height="150" />
+    <p>
+        @Model.Text
+    </p>
+
+</div>

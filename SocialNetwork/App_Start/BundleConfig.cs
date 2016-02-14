@@ -30,6 +30,10 @@ namespace SocialNetwork
                       "~/Content/themes/base/datepicker.css",
                       "~/Content/site.css"));
 
+
+            bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
+                "~/Scripts/jquery.signalR-2.2.0.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(               
                 "~/Scripts/jquery-ui-1.11.4.js",
                 "~/Scripts/Site.js"));

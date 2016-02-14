@@ -8,10 +8,10 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-@{
-    Html.RenderPartial("_TopNavBar");
-}
-<div class="container body-content">
+    @{
+        Html.RenderPartial("_TopNavBar");
+    }
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
@@ -22,6 +22,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render(("~/bundles/jquery-ui"))
+    @Scripts.Render(("~/bundles/signalR"))
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/JS/main.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
